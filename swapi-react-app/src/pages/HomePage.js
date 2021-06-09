@@ -1,27 +1,32 @@
 import React, { useEffect, useState } from 'react'
-import { Loader } from 'semantic-ui-react'
+import { Grid, Header, Loader } from 'semantic-ui-react'
+import ActorCard from '../components/ActorCard'
+import SearchForm from '../components/SearchForm'
 
 const HomePage = () => {
-  const [films, setFilms] = useState([])
+  const [actors, setActors] = useState([])
+  const [searchQuery, setSearchQuery] = useState('')
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [movies, setMovies] = useState([])
+  const [singleMovie, setSingleMovie] = useState('')
 
   useEffect(() => {
-    async function fetchFilms() {
+    async function fetchActors() {
       try {
+        const res = await fetch(
+          `https://swapi.dev/api/people/?search=${searchQuery}`
+        )
         setLoading(true)
-        const res = await fetch('https://swapi.dev/api/films/')
-        console.log(res)
 
         if (!res.ok) {
-          console.log('hello')
           setLoading(false)
           throw new Error('Something went wrong...')
         }
 
         const { results } = await res.json()
 
-        setFilms(results)
+        setActors(results)
         setLoading(false)
       } catch (err) {
         console.log({ err })
@@ -29,16 +34,31 @@ const HomePage = () => {
         setError(err)
       }
     }
-    fetchFilms()
-  }, [])
-  console.log(films)
+    fetchActors()
+  }, [searchQuery])
+  console.log(actors)
+  console.log({ movies })
+
+  //{actor.films.map((film) => setMovie(film))}
   return (
-    <div>
-      <p>https://youtu.be/EC5ZvP87P2k?t=427</p>
-      {loading && <Loader active inline='centered' />}
-      {error && <p>{error.message}</p>}
-      {films ? <p>Films</p> : error ? <p>{error}</p> : <p>Loading...</p>}
-    </div>
+    <Grid className='ui centered'>
+      <Grid.Row>
+        <SearchForm searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      </Grid.Row>
+
+      <Grid.Row>{loading && <Loader active inline='centered' />}</Grid.Row>
+      <Grid.Row>{error && <p>{error.message}</p>}</Grid.Row>
+
+      {searchQuery && (
+        <Grid.Row>
+          <Header>Search results for '{searchQuery}'</Header>
+        </Grid.Row>
+      )}
+      {actors &&
+        actors.map((actor) => {
+          return <ActorCard key={actor.name} actor={actor} />
+        })}
+    </Grid>
   )
 }
 
