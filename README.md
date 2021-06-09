@@ -39,10 +39,6 @@ For Step 2 we would like you to implement Step 1, by following the mockup we pro
 An application that is implementing Step 1 as close as possible to the mock-up of the appendix.
 If your application is functional and shows the data we want, but not particularly follows the provided design we will judge your design ability as well
 
-### UNIT TESTS
-
-We want to see how well you can protect and compartmentalize your code in order to be unit testable and of course tests that can cover the most essential parts of your code
-
 ### UI
 
 Feel free to use any UI Library you feel comfortable with ( i.e. Material-UI, React-Bootstrap, Semantic-UI, etc.)
