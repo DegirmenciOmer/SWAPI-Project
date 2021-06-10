@@ -1,9 +1,13 @@
 import React from 'react'
-import { Form, Icon } from 'semantic-ui-react'
+import { Form, Icon, Button } from 'semantic-ui-react'
 
 const SearchForm = ({ searchQuery, setSearchQuery }) => {
   function onChange(e) {
     setSearchQuery(e.target.value)
+    if (!e.target.value) {
+      setSearchQuery(undefined)
+    }
+    console.log(e.target.value)
   }
   function onSearch() {}
   return (
@@ -16,9 +20,13 @@ const SearchForm = ({ searchQuery, setSearchQuery }) => {
             value={searchQuery}
             onChange={onChange}
           />
-          <Form.Button
-            content={<Icon name='search' inverted circular link />}
-          />
+
+          <Form.Button animated='vertical'>
+            <Button.Content hidden>Search</Button.Content>
+            <Button.Content visible>
+              <Icon name='search' />
+            </Button.Content>
+          </Form.Button>
         </Form.Group>
       </Form>
     </>

@@ -14,3 +14,7 @@ body{
 .actor-card{
   margin: 1em !important;
 }
+
+.field{
+  padding-top: 10px !important;
+}

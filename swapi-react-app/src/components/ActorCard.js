@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card, Image } from 'semantic-ui-react'
+import FetchFilms from './FetchFilms'
 
 const ActorCard = ({ actor }) => {
   return (
@@ -17,9 +18,7 @@ const ActorCard = ({ actor }) => {
       </Card.Content>
       <Card.Content extra>
         <Card.Header>Movies</Card.Header>
-        {actor.films.map((movie) => {
-          return <p key={movie}>{movie}</p>
-        })}
+        <FetchFilms films={actor.films} />
       </Card.Content>
     </Card>
   )

@@ -5,11 +5,9 @@ import SearchForm from '../components/SearchForm'
 
 const HomePage = () => {
   const [actors, setActors] = useState([])
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchQuery, setSearchQuery] = useState(undefined)
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [movies, setMovies] = useState([])
-  const [singleMovie, setSingleMovie] = useState('')
 
   useEffect(() => {
     async function fetchActors() {
@@ -37,7 +35,6 @@ const HomePage = () => {
     fetchActors()
   }, [searchQuery])
   console.log(actors)
-  console.log({ movies })
 
   //{actor.films.map((film) => setMovie(film))}
   return (

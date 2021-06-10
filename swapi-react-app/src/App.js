@@ -17,13 +17,15 @@ function App() {
 //https://youtu.be/EC5ZvP87P2k?t=427
 /** HomePage
  
- * Search bar: Search for moviae actors
+ * Search bar: Search for movie actors
  * after 3 letters fetch  data
  * use useEffect to fetch the data
  * list actors
  * onclick the link => movie page
+ * 
  *
  */
+
 /** MoviePage
  * Back button
  *
@@ -32,6 +34,7 @@ function App() {
  *
  *
  */
+
 //unsplash
 //https://api.unsplash.com/photos/?client_id=wJrvi_TuEWBittaTukwYJcSXdfvEjdEZKvOs1bzKOCA
 

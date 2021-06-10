@@ -1,32 +1,35 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { Card } from 'semantic-ui-react'
 
-const FetchFilms = ({ films, setFilms }) => {
+const FetchFilms = ({ films }) => {
+  const [movies, setMovies] = useState([])
   useEffect(() => {
-    async function fetchMovie() {
+    async function fetchMovies() {
       try {
-        const res = await fetch(
-          `https://swapi.dev/api/people/?search=${searchQuery}`
+        const filmsResponses = await Promise.all(
+          films.map(async (filmUrl) => {
+            const filmResponse = await fetch(filmUrl)
+            return filmResponse.json()
+          })
         )
-        setLoading(true)
 
-        if (!res.ok) {
-          setLoading(false)
-          throw new Error('Something went wrong...')
-        }
-
-        const { results } = await res.json()
-
-        setActors(results)
-        setLoading(false)
+        console.log(filmsResponses)
+        setMovies(filmsResponses)
+        console.log(movies)
       } catch (err) {
         console.log({ err })
-        setLoading(false)
-        setError(err)
       }
     }
-    fetchMovie()
-  }, [searchQuery])
-  return <div></div>
+    fetchMovies()
+  }, [])
+  return (
+    <>
+      {movies &&
+        movies.map((movie) => (
+          <Card.Meta key={movie.episode_id}>{movie.title}</Card.Meta>
+        ))}
+    </>
+  )
 }
 
 export default FetchFilms
