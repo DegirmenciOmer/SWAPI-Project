@@ -3,11 +3,11 @@ import { Card, Image } from 'semantic-ui-react'
 
 const ActorCard = ({ actor }) => {
   return (
-    <Card>
+    <Card className='actor-card'>
       <Card.Content>
         <Image
           floated='right'
-          size='mini'
+          size='tiny'
           src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
         />
         <Card.Header>{actor.name}</Card.Header>

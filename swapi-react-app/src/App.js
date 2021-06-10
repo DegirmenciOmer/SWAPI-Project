@@ -1,11 +1,16 @@
 import './App.css'
 import HomePage from './pages/HomePage'
+import MoviePage from './pages/MoviePage'
 import 'semantic-ui-css/semantic.min.css'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 function App() {
   return (
     <div className='App'>
-      <HomePage />
+      <Router>
+        <Route exact path='/' component={HomePage} />
+        <Route exact path='/movie' component={MoviePage} />
+      </Router>
     </div>
   )
 }
@@ -27,5 +32,7 @@ function App() {
  *
  *
  */
+//unsplash
+//https://api.unsplash.com/photos/?client_id=wJrvi_TuEWBittaTukwYJcSXdfvEjdEZKvOs1bzKOCA
 
 export default App

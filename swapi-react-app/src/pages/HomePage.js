@@ -42,6 +42,7 @@ const HomePage = () => {
   //{actor.films.map((film) => setMovie(film))}
   return (
     <Grid className='ui centered'>
+      <Header>Star Wars</Header>
       <Grid.Row>
         <SearchForm searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       </Grid.Row>
