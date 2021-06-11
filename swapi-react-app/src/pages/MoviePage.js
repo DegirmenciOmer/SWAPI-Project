@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Grid, Header } from 'semantic-ui-react'
+import { Grid, Header, Loader } from 'semantic-ui-react'
 import fetchData from '../util/fetchData'
 
 const MoviePage = (props) => {
-  const [film, setFilm] = useState({})
+  const [movie, setMovie] = useState({})
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
   const FILMS_URL = 'https://swapi.dev/api/films/'
 
   useEffect(() => {
     fetchData(FILMS_URL, props.match.params.id, setLoading, setError).then(
-      (data) => setFilm(data)
+      (data) => setMovie(data)
     )
 
-    console.log(film)
+    console.log(movie)
   }, [props.match.params])
 
-  console.log(film)
+  console.log(movie)
 
   return (
     <Grid columns={3} className='ui centered'>
@@ -26,31 +26,31 @@ const MoviePage = (props) => {
           Back
         </Header>
       </Grid.Row>
-      <Grid.Row>
-        <Header>The Movie Name</Header>
-      </Grid.Row>{' '}
-      <Grid.Row>Director:</Grid.Row>
-      <Grid.Row>Producer:</Grid.Row>
-      <Grid.Row>Release Date:</Grid.Row>
-      <Grid.Row>
-        Opening Crawl:
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-          mollitia, molestiae quas vel sint commodi repudiandae consequuntur
-          voluptatum laborum numquam blanditiis harum quisquam eius sed odit
-          fugiat iusto fuga praesentium optio, eaque rerum! Provident similique
-          accusantium nemo autem. Veritatis obcaecati tenetur iure eius earum ut
-          molestias architecto voluptate aliquam nihil, eveniet aliquid culpa
-          officia aut! Impedit sit sunt quaerat, odit, tenetur error, harum
-          nesciunt ipsum debitis quas aliquid. Reprehenderit, quia. Quo neque
-          error repudiandae fuga? Ipsa laudantium molestias eos sapiente
-          officiis modi at sunt excepturi expedita sint? Sed quibusdam
-          recusandae alias error harum maxime adipisci amet laborum.
-          Perspiciatis minima nesciunt dolorem! Officiis iure rerum voluptates a
-          cumque velit quibusdam sed amet tempora. Sit laborum ab, eius fugit
-          doloribus tenetu
-        </p>
-      </Grid.Row>
+      <Grid.Row>{loading && <Loader active inline='centered' />}</Grid.Row>
+      <Grid.Row>{error && <p>{error.message}</p>}</Grid.Row>
+      {movie && (
+        <>
+          <Grid.Row>
+            <Header>{movie.title}</Header>
+          </Grid.Row>
+          <Grid.Row>
+            <span className='movie-item'>Director: </span> {movie.director}
+          </Grid.Row>
+          <Grid.Row>
+            <span className='movie-item'>Producer: </span> {movie.producer}
+          </Grid.Row>
+
+          <Grid.Row>
+            <span className='movie-item'>Release Date: </span>{' '}
+            {movie.release_date}
+          </Grid.Row>
+
+          <Grid.Row>
+            <span className='movie-item'> Opening Crawl: </span>
+            <p>{movie.opening_crawl}</p>
+          </Grid.Row>
+        </>
+      )}
       <Grid.Row></Grid.Row>
       <Grid.Row>
         <Grid.Column></Grid.Column>

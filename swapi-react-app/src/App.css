@@ -18,3 +18,7 @@ body{
 .field{
   padding-top: 10px !important;
 }
+
+.movie-item{
+  font-weight: bold;
+}
