@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Card } from 'semantic-ui-react'
 
 const FetchFilms = ({ films }) => {
@@ -21,12 +22,16 @@ const FetchFilms = ({ films }) => {
       }
     }
     fetchMovies()
-  }, [])
+  }, [films])
   return (
     <>
       {movies &&
         movies.map((movie) => (
-          <Card.Meta key={movie.episode_id}>{movie.title}</Card.Meta>
+          <div key={movie.episode_id}>
+            <Card.Meta as={Link} to={`/movie/${movie.episode_id}`}>
+              {movie.title}
+            </Card.Meta>
+          </div>
         ))}
     </>
   )

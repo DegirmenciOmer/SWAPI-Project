@@ -1,8 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Grid, Header } from 'semantic-ui-react'
+import fetchData from '../util/fetchData'
 
-const MoviePage = () => {
+const MoviePage = (props) => {
+  const [film, setFilm] = useState({})
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const FILMS_URL = 'https://swapi.dev/api/films/'
+
+  useEffect(() => {
+    fetchData(FILMS_URL, props.match.params.id, setLoading, setError).then(
+      (data) => setFilm(data)
+    )
+
+    console.log(film)
+  }, [props.match.params])
+
+  console.log(film)
+
   return (
     <Grid columns={3} className='ui centered'>
       <Grid.Row>

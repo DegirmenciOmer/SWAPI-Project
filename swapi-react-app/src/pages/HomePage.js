@@ -2,41 +2,26 @@ import React, { useEffect, useState } from 'react'
 import { Grid, Header, Loader } from 'semantic-ui-react'
 import ActorCard from '../components/ActorCard'
 import SearchForm from '../components/SearchForm'
+import fetchData from '../util/fetchData'
 
 const HomePage = () => {
   const [actors, setActors] = useState([])
-  const [searchQuery, setSearchQuery] = useState(undefined)
+  const [searchQuery, setSearchQuery] = useState('')
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
+  const ACTORS_URL = 'https://swapi.dev/api/people/?search='
 
   useEffect(() => {
-    async function fetchActors() {
-      try {
-        const res = await fetch(
-          `https://swapi.dev/api/people/?search=${searchQuery}`
+    if (searchQuery !== '') {
+      if (searchQuery.length > 2) {
+        fetchData(ACTORS_URL, searchQuery, setLoading, setError).then((data) =>
+          setActors(data.results)
         )
-        setLoading(true)
-
-        if (!res.ok) {
-          setLoading(false)
-          throw new Error('Something went wrong...')
-        }
-
-        const { results } = await res.json()
-
-        setActors(results)
-        setLoading(false)
-      } catch (err) {
-        console.log({ err })
-        setLoading(false)
-        setError(err)
       }
     }
-    fetchActors()
   }, [searchQuery])
   console.log(actors)
 
-  //{actor.films.map((film) => setMovie(film))}
   return (
     <Grid className='ui centered'>
       <Header>Star Wars</Header>
@@ -54,7 +39,15 @@ const HomePage = () => {
       )}
       {actors &&
         actors.map((actor) => {
-          return <ActorCard key={actor.name} actor={actor} />
+          return (
+            <ActorCard
+              key={actor.name}
+              actor={actor}
+              setLoading={setLoading}
+              setActors={setActors}
+              setError={setError}
+            />
+          )
         })}
     </Grid>
   )
