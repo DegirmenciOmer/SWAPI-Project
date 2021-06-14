@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Grid, Header, Loader } from 'semantic-ui-react'
+import { Button, Card, Grid, Loader } from 'semantic-ui-react'
 import fetchData from '../util/fetchData'
 
 const MoviePage = (props) => {
   const [movie, setMovie] = useState({})
   const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const FILMS_URL = 'https://swapi.dev/api/films/'
 
   useEffect(() => {
@@ -20,44 +20,42 @@ const MoviePage = (props) => {
   console.log(movie)
 
   return (
-    <Grid columns={3} className='ui centered'>
-      <Grid.Row>
-        <Header as={Link} to='/'>
-          Back
-        </Header>
-      </Grid.Row>
-      <Grid.Row>{loading && <Loader active inline='centered' />}</Grid.Row>
-      <Grid.Row>{error && <p>{error.message}</p>}</Grid.Row>
+    <>
+      <Grid stackable columns={3} className='ui middle aligned centered '>
+        <Grid.Row>{loading && <Loader active inline='centered' />}</Grid.Row>
+        <Grid.Row>{error && <p>{error.message}</p>}</Grid.Row>{' '}
+      </Grid>
       {movie && (
-        <>
-          <Grid.Row>
-            <Header>{movie.title}</Header>
-          </Grid.Row>
-          <Grid.Row>
-            <span className='movie-item'>Director: </span> {movie.director}
-          </Grid.Row>
-          <Grid.Row>
-            <span className='movie-item'>Producer: </span> {movie.producer}
-          </Grid.Row>
+        <Card className='movie-page-container'>
+          <Card.Content>
+            <Card.Header>{movie.title}</Card.Header>
+          </Card.Content>
+          <Card.Content fluid>
+            <Card.Description fluid>
+              <span className='movie-item '>Director: </span> {movie.director}
+            </Card.Description>
+            <Card.Description>
+              <span className='movie-item'>Producer: </span> {movie.producer}
+            </Card.Description>
 
-          <Grid.Row>
-            <span className='movie-item'>Release Date: </span>{' '}
-            {movie.release_date}
-          </Grid.Row>
+            <Card.Description>
+              <span className='movie-item'>Release Date: </span>{' '}
+              {movie.release_date}
+            </Card.Description>
+          </Card.Content>
 
-          <Grid.Row>
+          <Card.Content>
             <span className='movie-item'> Opening Crawl: </span>
             <p>{movie.opening_crawl}</p>
-          </Grid.Row>
-        </>
+          </Card.Content>
+          <Card.Content textAlign='center' extra>
+            <Button as={Link} to='/' basic color='blue'>
+              Back
+            </Button>
+          </Card.Content>
+        </Card>
       )}
-      <Grid.Row></Grid.Row>
-      <Grid.Row>
-        <Grid.Column></Grid.Column>
-        <Grid.Column></Grid.Column>
-        <Grid.Column></Grid.Column>
-      </Grid.Row>
-    </Grid>
+    </>
   )
 }
 

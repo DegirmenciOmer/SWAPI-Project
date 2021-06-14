@@ -3,6 +3,7 @@ import { Grid, Header, Loader } from 'semantic-ui-react'
 import ActorCard from '../components/ActorCard'
 import SearchForm from '../components/SearchForm'
 import fetchData from '../util/fetchData'
+import logo from './star-wars-logo.svg'
 
 const HomePage = () => {
   const [actors, setActors] = useState([])
@@ -17,14 +18,20 @@ const HomePage = () => {
         fetchData(ACTORS_URL, searchQuery, setLoading, setError).then((data) =>
           setActors(data.results)
         )
+      } else {
+        return
       }
+    } else {
+      return
     }
   }, [searchQuery])
   console.log(actors)
 
   return (
     <Grid className='ui centered'>
-      <Header>Star Wars</Header>
+      <div>
+        <img className='logo' src={logo} alt='logo' />
+      </div>
       <Grid.Row>
         <SearchForm searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       </Grid.Row>
@@ -46,6 +53,7 @@ const HomePage = () => {
               setLoading={setLoading}
               setActors={setActors}
               setError={setError}
+              loading={loading}
             />
           )
         })}
