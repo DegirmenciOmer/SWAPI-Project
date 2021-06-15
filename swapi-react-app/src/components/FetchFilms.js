@@ -5,6 +5,7 @@ import { Card } from 'semantic-ui-react'
 const FetchFilms = ({ films }) => {
   const [movies, setMovies] = useState([])
   useEffect(() => {
+    console.log(films)
     async function fetchMovies() {
       try {
         const filmsResponses = await Promise.all(
@@ -14,9 +15,9 @@ const FetchFilms = ({ films }) => {
           })
         )
 
-        console.log(filmsResponses)
+        console.log(filmsResponses, 'filmsResponses')
         setMovies(filmsResponses)
-        console.log(movies)
+        console.log(movies, 'movies')
       } catch (err) {
         console.log({ err })
       }

@@ -6,7 +6,7 @@ import fetchData from '../util/fetchData'
 const MoviePage = (props) => {
   const [movie, setMovie] = useState({})
   const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const FILMS_URL = 'https://swapi.dev/api/films/'
 
   useEffect(() => {
@@ -25,13 +25,13 @@ const MoviePage = (props) => {
         <Grid.Row>{loading && <Loader active inline='centered' />}</Grid.Row>
         <Grid.Row>{error && <p>{error.message}</p>}</Grid.Row>{' '}
       </Grid>
-      {movie && (
+      {!loading && (
         <Card className='movie-page-container'>
           <Card.Content>
             <Card.Header>{movie.title}</Card.Header>
           </Card.Content>
-          <Card.Content fluid>
-            <Card.Description fluid>
+          <Card.Content>
+            <Card.Description>
               <span className='movie-item '>Director: </span> {movie.director}
             </Card.Description>
             <Card.Description>
