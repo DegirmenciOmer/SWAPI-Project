@@ -39,11 +39,6 @@ const HomePage = () => {
       <Grid.Row>{loading && <Loader active inline='centered' />}</Grid.Row>
       <Grid.Row>{error && <p>{error.message}</p>}</Grid.Row>
 
-      {searchQuery && (
-        <Grid.Row>
-          <Header>Search results for '{searchQuery}'</Header>
-        </Grid.Row>
-      )}
       {actors &&
         actors.map((actor) => {
           return (

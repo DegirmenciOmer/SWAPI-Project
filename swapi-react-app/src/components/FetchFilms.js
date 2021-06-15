@@ -1,10 +1,9 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Card } from 'semantic-ui-react'
 
-export const MovieContext = createContext()
-
 const FetchFilms = ({ films }) => {
+  const [error, setError] = useState(false)
   const [movies, setMovies] = useState([])
   useEffect(() => {
     console.log(films)
@@ -12,15 +11,14 @@ const FetchFilms = ({ films }) => {
       try {
         const filmsResponses = await Promise.all(
           films.map(async (filmUrl) => {
-            const filmResponse = await fetch(filmUrl)
+            const filmResponse = await fetch(filmUrl.replace(/http/g, 'https'))
             return filmResponse.json()
           })
         )
 
-        console.log(filmsResponses, 'filmsResponses')
         setMovies(filmsResponses)
-        console.log(movies, 'movies')
       } catch (err) {
+        setError(true)
         console.log({ err })
       }
     }
@@ -28,6 +26,7 @@ const FetchFilms = ({ films }) => {
   }, [films])
   return (
     <>
+      {error && <p>Something went wrong...</p>}
       {movies &&
         movies.map((movie) => (
           <div key={movie.episode_id}>
