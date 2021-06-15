@@ -9,12 +9,11 @@ function App() {
     <div className='App'>
       <Router>
         <Route exact path='/' component={HomePage} />
-        <Route exact path='/movie/:id' component={MoviePage} />
+        <Route path='/movie/:id' component={MoviePage} />
       </Router>
     </div>
   )
 }
-//https://youtu.be/EC5ZvP87P2k?t=427
 /** HomePage
  
  * Search bar: Search for movie actors
