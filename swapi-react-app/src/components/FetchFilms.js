@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Card } from 'semantic-ui-react'
+
+export const MovieContext = createContext()
 
 const FetchFilms = ({ films }) => {
   const [movies, setMovies] = useState([])
@@ -29,7 +31,7 @@ const FetchFilms = ({ films }) => {
       {movies &&
         movies.map((movie) => (
           <div key={movie.episode_id}>
-            <Card.Meta as={Link} to={`/movie/${movie.episode_id}`}>
+            <Card.Meta as={Link} to={`/movie/${movie.url.slice(27)}`}>
               {movie.title}
             </Card.Meta>
           </div>

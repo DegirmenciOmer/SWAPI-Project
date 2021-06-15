@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Image, Loader } from 'semantic-ui-react'
 import FetchFilms from './FetchFilms'
 
-const ActorCard = ({ actor, loading, setLoading }) => {
+const ActorCard = ({ actor, loading }) => {
   console.log(actor.films)
   return (
     <Card className='actor-card '>

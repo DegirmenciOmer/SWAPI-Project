@@ -5,6 +5,7 @@ const SearchForm = ({ searchQuery, setSearchQuery }) => {
   function onChange(e) {
     setSearchQuery(e.target.value)
   }
+
   return (
     <Form>
       <Form.Group>
@@ -13,6 +14,7 @@ const SearchForm = ({ searchQuery, setSearchQuery }) => {
           name='name'
           value={searchQuery}
           onChange={onChange}
+          autocomplete='off'
         />
       </Form.Group>
     </Form>

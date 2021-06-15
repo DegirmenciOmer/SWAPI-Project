@@ -3,13 +3,16 @@ import HomePage from './pages/HomePage'
 import MoviePage from './pages/MoviePage'
 import 'semantic-ui-css/semantic.min.css'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { DataContext } from './util/fetchDataContext'
 
 function App() {
   return (
     <div className='App'>
       <Router>
-        <Route exact path='/' component={HomePage} />
-        <Route path='/movie/:id' component={MoviePage} />
+        <DataContext>
+          <Route exact path='/' component={HomePage} />
+          <Route path='/movie/:id' component={MoviePage} />
+        </DataContext>
       </Router>
     </div>
   )
