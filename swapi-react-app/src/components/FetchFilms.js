@@ -11,9 +11,7 @@ const FetchFilms = ({ films }) => {
         const filmsResponses = await Promise.all(
           films.map(async (filmUrl) => {
             const secureUrl = filmUrl.replace(/http/g, 'https')
-            console.log(secureUrl)
             const filmResponse = await fetch(secureUrl)
-            console.log(secureUrl)
             return filmResponse.json()
           })
         )

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Grid, Loader } from 'semantic-ui-react'
+import { Grid, Image, Loader } from 'semantic-ui-react'
 import ActorCard from '../components/ActorCard'
 import SearchForm from '../components/SearchForm'
 import fetchData from '../util/fetchData'
@@ -28,13 +28,12 @@ const HomePage = () => {
       return
     }
   }, [searchQuery])
-  console.log(actors)
 
   return (
     <Grid className='ui centered'>
-      <div>
-        <img className='logo' src={logo} alt='logo' />
-      </div>
+      <Grid.Row>
+        <Image className='logo' src={logo} alt='logo' />
+      </Grid.Row>
       <Grid.Row>
         <SearchForm searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       </Grid.Row>

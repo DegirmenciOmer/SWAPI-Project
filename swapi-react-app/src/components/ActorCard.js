@@ -2,8 +2,7 @@ import React from 'react'
 import { Card, Image, Loader } from 'semantic-ui-react'
 import FetchFilms from './FetchFilms'
 
-const ActorCard = ({ actor, loading }) => {
-  console.log(actor.films)
+const ActorCard = ({ actor }) => {
   return (
     <Card className='actor-card '>
       <Card.Content>
@@ -19,12 +18,7 @@ const ActorCard = ({ actor, loading }) => {
       </Card.Content>
       <Card.Content extra>
         <Card.Header>Movies</Card.Header>
-        {!actor.films ? (
-          <Loader active inline='centered' />
-        ) : (
-          <FetchFilms films={actor.films} />
-        )}
-        {loading && <Loader active inline='centered' />}
+        {actor.films && <FetchFilms films={actor.films} />}
       </Card.Content>
     </Card>
   )
