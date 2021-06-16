@@ -1,10 +1,13 @@
 export default async function fetchData(url, query, setLoading, setError) {
   try {
-    const res = await fetch(`${url}${query}`)
+    const fetchUrl = `${url}${query}`
+    console.log({ fetchUrl })
+    const res = await fetch(fetchUrl)
     setLoading(true)
 
     if (!res.ok) {
       setLoading(false)
+      setError('something')
       throw new Error('Something went wrong...')
     }
 

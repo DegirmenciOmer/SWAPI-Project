@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Card, Grid, Loader } from 'semantic-ui-react'
+import ErrorCard from '../components/ErrorCard'
 import fetchData from '../util/fetchData'
 
 const MoviePage = (props) => {
@@ -11,21 +12,21 @@ const MoviePage = (props) => {
 
   useEffect(() => {
     fetchData(FILMS_URL, props.match.params.id, setLoading, setError).then(
-      (data) => setMovie(data)
+      (data) => {
+        console.log({ data })
+        setMovie(data)
+      }
     )
+  }, [props.match.params.id])
 
-    console.log(movie)
-  }, [props.match.params])
-
-  console.log(movie)
+  console.log({ movie })
 
   return (
     <>
       <Grid stackable columns={3} className='ui middle aligned centered '>
         <Grid.Row>{loading && <Loader active inline='centered' />}</Grid.Row>
-        <Grid.Row>{error && <p>{error.message}</p>}</Grid.Row>{' '}
       </Grid>
-      {!loading && (
+      {movie ? (
         <Card className='movie-page-container'>
           <Card.Content>
             <Card.Header>{movie.title}</Card.Header>
@@ -54,6 +55,8 @@ const MoviePage = (props) => {
             </Button>
           </Card.Content>
         </Card>
+      ) : (
+        <ErrorCard error={error} />
       )}
     </>
   )

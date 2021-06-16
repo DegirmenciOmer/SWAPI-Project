@@ -55,6 +55,10 @@ justify-content: center !important;
    width: 150px;
  }
 
+ .error{
+   color: red !important
+ }
+
 
 /* .movie-page-container::after{
   background-color: rgba(255, 255, 255, 0.5)

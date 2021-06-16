@@ -6,12 +6,14 @@ const FetchFilms = ({ films }) => {
   const [error, setError] = useState(false)
   const [movies, setMovies] = useState([])
   useEffect(() => {
-    console.log(films)
     async function fetchMovies() {
       try {
         const filmsResponses = await Promise.all(
           films.map(async (filmUrl) => {
-            const filmResponse = await fetch(filmUrl.replace(/http/g, 'https'))
+            const secureUrl = filmUrl.replace(/http/g, 'https')
+            console.log(secureUrl)
+            const filmResponse = await fetch(secureUrl)
+            console.log(secureUrl)
             return filmResponse.json()
           })
         )

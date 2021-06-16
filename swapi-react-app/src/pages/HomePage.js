@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Grid, Header, Loader } from 'semantic-ui-react'
+import { Grid, Loader } from 'semantic-ui-react'
 import ActorCard from '../components/ActorCard'
 import SearchForm from '../components/SearchForm'
 import fetchData from '../util/fetchData'
 import logo from './star-wars-logo.svg'
+import ErrorCard from '../components/ErrorCard'
 
 const HomePage = () => {
   const [actors, setActors] = useState([])
@@ -15,8 +16,10 @@ const HomePage = () => {
   useEffect(() => {
     if (searchQuery !== '') {
       if (searchQuery.length > 2) {
-        fetchData(ACTORS_URL, searchQuery, setLoading, setError).then((data) =>
-          setActors(data.results)
+        fetchData(ACTORS_URL, searchQuery, setLoading, setError).then(
+          (data) => {
+            !data ? new Error('Oops...') : setActors(data.results)
+          }
         )
       } else {
         return
@@ -36,8 +39,12 @@ const HomePage = () => {
         <SearchForm searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       </Grid.Row>
 
-      <Grid.Row>{loading && <Loader active inline='centered' />}</Grid.Row>
-      <Grid.Row>{error && <p>{error.message}</p>}</Grid.Row>
+      {loading && (
+        <Grid.Row>
+          <Loader active inline='centered' />
+        </Grid.Row>
+      )}
+      {error && <ErrorCard error={error} />}
 
       {actors &&
         actors.map((actor) => {
