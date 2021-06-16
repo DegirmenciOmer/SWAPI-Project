@@ -14,16 +14,10 @@ const HomePage = () => {
   const ACTORS_URL = 'https://swapi.dev/api/people/?search='
 
   useEffect(() => {
-    if (searchQuery !== '') {
-      if (searchQuery.length > 2) {
-        fetchData(ACTORS_URL, searchQuery, setLoading, setError).then(
-          (data) => {
-            !data ? new Error('Oops...') : setActors(data.results)
-          }
-        )
-      } else {
-        return
-      }
+    if (searchQuery.length > 2) {
+      fetchData(ACTORS_URL, searchQuery, setLoading, setError).then((data) => {
+        !data ? new Error('Oops...') : setActors(data.results)
+      })
     } else {
       return
     }

@@ -7,7 +7,6 @@ export default async function fetchData(url, query, setLoading, setError) {
 
     if (!res.ok) {
       setLoading(false)
-      setError('something')
       throw new Error('Something went wrong...')
     }
 
