@@ -3,25 +3,28 @@ import HomePage from './pages/HomePage'
 import MoviePage from './pages/MoviePage'
 import 'semantic-ui-css/semantic.min.css'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { MovieProvider } from './context/MovieContext'
 
 function App() {
   return (
     <div className='App'>
       <Router>
-        <Route exact path='/' component={HomePage} />
-        <Route path='/movie/:id' component={MoviePage} />
+        <MovieProvider>
+          <Route exact path='/' component={HomePage} />
+          <Route path='/movie/:id' component={MoviePage} />
+        </MovieProvider>
       </Router>
     </div>
   )
 }
 /** HomePage
- 
+
  * Search bar: Search for movie actors
  * after 3 letters fetch  data
  * use useEffect to fetch the data
  * list actors
  * onclick the link => movie page
- * 
+ *
  *
  */
 

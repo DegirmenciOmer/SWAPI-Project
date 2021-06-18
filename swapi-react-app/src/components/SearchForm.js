@@ -14,7 +14,7 @@ const SearchForm = ({ searchQuery, setSearchQuery }) => {
           name='name'
           value={searchQuery}
           onChange={onChange}
-          autocomplete='off'
+          autoComplete='off'
         />
       </Form.Group>
     </Form>

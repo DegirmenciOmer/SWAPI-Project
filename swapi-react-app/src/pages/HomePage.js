@@ -5,12 +5,14 @@ import SearchForm from '../components/SearchForm'
 import fetchData from '../util/fetchData'
 import logo from './star-wars-logo.svg'
 import ErrorCard from '../components/ErrorCard'
+import { useMovies } from '../context/MovieContext'
 
 const HomePage = () => {
   const [actors, setActors] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
+
   const ACTORS_URL = 'https://swapi.dev/api/people/?search='
 
   useEffect(() => {

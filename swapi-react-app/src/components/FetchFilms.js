@@ -1,10 +1,23 @@
 import React, { useEffect, useState } from 'react'
+
 import { Link } from 'react-router-dom'
 import { Card } from 'semantic-ui-react'
+import { useMovies } from '../context/MovieContext'
+import MoviePage from '../pages/MoviePage'
+import { useHistory } from 'react-router-dom'
 
 const FetchFilms = ({ films }) => {
   const [error, setError] = useState(false)
   const [movies, setMovies] = useState([])
+  const { setCurrentMovie } = useMovies()
+
+  const history = useHistory()
+
+  const goToMoviePage = (movie) => {
+    setCurrentMovie(movie)
+    history.push(`/movie/${movie.url.slice(27)}`)
+  }
+
   useEffect(() => {
     async function fetchMovies() {
       try {
@@ -30,7 +43,7 @@ const FetchFilms = ({ films }) => {
       {movies &&
         movies.map((movie) => (
           <div key={movie.episode_id}>
-            <Card.Meta as={Link} to={`/movie/${movie.url.slice(27)}`}>
+            <Card.Meta onClick={() => goToMoviePage(movie)}>
               {movie.title}
             </Card.Meta>
           </div>

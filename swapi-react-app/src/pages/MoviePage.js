@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Card, Grid, Loader } from 'semantic-ui-react'
 import ErrorCard from '../components/ErrorCard'
+import { useMovies } from '../context/MovieContext'
 import fetchData from '../util/fetchData'
 
 const MoviePage = (props) => {
@@ -10,16 +11,7 @@ const MoviePage = (props) => {
   const [loading, setLoading] = useState(false)
   const FILMS_URL = 'https://swapi.dev/api/films/'
 
-  useEffect(() => {
-    fetchData(FILMS_URL, props.match.params.id, setLoading, setError).then(
-      (data) => {
-        console.log({ data })
-        setMovie(data)
-      }
-    )
-  }, [props.match.params.id])
-
-  console.log({ movie })
+  const value = useMovies()
 
   return (
     <>
