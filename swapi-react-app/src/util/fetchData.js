@@ -1,7 +1,7 @@
 export default async function fetchData(url, query, setLoading, setError) {
   try {
     const fetchUrl = `${url}${query}`
-    console.log({ fetchUrl })
+    console.log(fetchUrl)
     const res = await fetch(fetchUrl)
     setLoading(true)
 

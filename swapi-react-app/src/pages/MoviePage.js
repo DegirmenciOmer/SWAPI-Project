@@ -1,45 +1,39 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Card, Grid, Loader } from 'semantic-ui-react'
+import { Button, Card } from 'semantic-ui-react'
 import ErrorCard from '../components/ErrorCard'
 import { useMovies } from '../context/MovieContext'
-import fetchData from '../util/fetchData'
 
-const MoviePage = (props) => {
-  const [movie, setMovie] = useState({})
-  const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const FILMS_URL = 'https://swapi.dev/api/films/'
-
-  const value = useMovies()
+const MoviePage = () => {
+  const { currentMovie } = useMovies()
+  console.log(currentMovie)
 
   return (
     <>
-      <Grid stackable columns={3} className='ui middle aligned centered '>
-        <Grid.Row>{loading && <Loader active inline='centered' />}</Grid.Row>
-      </Grid>
-      {movie ? (
+      {currentMovie ? (
         <Card className='movie-page-container'>
           <Card.Content>
-            <Card.Header>{movie.title}</Card.Header>
+            <Card.Header>{currentMovie.title}</Card.Header>
           </Card.Content>
           <Card.Content>
             <Card.Description>
-              <span className='movie-item '>Director: </span> {movie.director}
+              <span className='movie-item '>Director: </span>{' '}
+              {currentMovie.director}
             </Card.Description>
             <Card.Description>
-              <span className='movie-item'>Producer: </span> {movie.producer}
+              <span className='movie-item'>Producer: </span>{' '}
+              {currentMovie.producer}
             </Card.Description>
 
             <Card.Description>
               <span className='movie-item'>Release Date: </span>{' '}
-              {movie.release_date}
+              {currentMovie.release_date}
             </Card.Description>
           </Card.Content>
 
           <Card.Content>
             <span className='movie-item'> Opening Crawl: </span>
-            <p>{movie.opening_crawl}</p>
+            <p>{currentMovie.opening_crawl}</p>
           </Card.Content>
           <Card.Content textAlign='center' extra>
             <Button as={Link} to='/' basic color='blue'>
@@ -48,7 +42,7 @@ const MoviePage = (props) => {
           </Card.Content>
         </Card>
       ) : (
-        <ErrorCard error={error} />
+        <ErrorCard />
       )}
     </>
   )
