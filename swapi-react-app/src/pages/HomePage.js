@@ -5,7 +5,6 @@ import SearchForm from '../components/SearchForm'
 import fetchData from '../util/fetchData'
 import logo from './star-wars-logo.svg'
 import ErrorCard from '../components/ErrorCard'
-import { useMovies } from '../context/MovieContext'
 
 const HomePage = () => {
   const [actors, setActors] = useState([])

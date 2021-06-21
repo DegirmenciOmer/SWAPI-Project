@@ -1,12 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Card } from 'semantic-ui-react'
+import { Button, Card, Accordion, Icon } from 'semantic-ui-react'
 import ErrorCard from '../components/ErrorCard'
-import { useMovies } from '../context/MovieContext'
+import { useSwapi } from '../context/Contexts'
+import FetchStarships from '../components/FetchStarships'
 
 const MoviePage = () => {
-  const { currentMovie } = useMovies()
-  console.log(currentMovie)
+  const { currentMovie } = useSwapi()
+  const [activeIndex, setActiveIndex] = useState(-1)
+
+  const handleAccordionClick = (e, titleProps) => {
+    const { index } = titleProps
+    const newIndex = activeIndex === index ? -1 : index
+    console.log(index, newIndex, activeIndex)
+
+    setActiveIndex(newIndex)
+  }
 
   return (
     <>
@@ -15,26 +24,62 @@ const MoviePage = () => {
           <Card.Content>
             <Card.Header>{currentMovie.title}</Card.Header>
           </Card.Content>
-          <Card.Content>
-            <Card.Description>
-              <span className='movie-item '>Director: </span>{' '}
+          <Accordion as={Card.Content}>
+            <Accordion.Title
+              className='movie-item'
+              active={activeIndex === 0}
+              index={0}
+              onClick={handleAccordionClick}
+            >
+              <Icon name='dropdown' />
+              General Info
+            </Accordion.Title>
+            <Accordion.Content active={activeIndex === 0}>
+              <span className='movie-item '>Director: </span>
               {currentMovie.director}
-            </Card.Description>
-            <Card.Description>
-              <span className='movie-item'>Producer: </span>{' '}
+            </Accordion.Content>
+            <Accordion.Content active={activeIndex === 0}>
+              <span className='movie-item'>Producer: </span>
               {currentMovie.producer}
-            </Card.Description>
+            </Accordion.Content>
 
-            <Card.Description>
-              <span className='movie-item'>Release Date: </span>{' '}
+            <Accordion.Content active={activeIndex === 0}>
+              <span className='movie-item'>Release Date: </span>
               {currentMovie.release_date}
-            </Card.Description>
-          </Card.Content>
+            </Accordion.Content>
+          </Accordion>
 
-          <Card.Content>
-            <span className='movie-item'> Opening Crawl: </span>
-            <p>{currentMovie.opening_crawl}</p>
-          </Card.Content>
+          <Accordion as={Card.Content}>
+            <Accordion.Title
+              className='movie-item'
+              active={activeIndex === 1}
+              index={1}
+              onClick={handleAccordionClick}
+            >
+              <Icon name='dropdown' />
+              Opening Crawl
+            </Accordion.Title>
+            <Accordion.Content active={activeIndex === 1}>
+              <p>{currentMovie.opening_crawl}</p>
+            </Accordion.Content>
+          </Accordion>
+
+          <Accordion as={Card.Content}>
+            <Accordion.Title
+              className='movie-item'
+              active={activeIndex === 2}
+              index={2}
+              onClick={handleAccordionClick}
+            >
+              <Icon name='dropdown' />
+              Starships
+            </Accordion.Title>
+            <Accordion.Content active={activeIndex === 2}>
+              {currentMovie.starships && (
+                <FetchStarships starships={currentMovie.starships} />
+              )}
+            </Accordion.Content>
+          </Accordion>
           <Card.Content textAlign='center' extra>
             <Button as={Link} to='/' basic color='blue'>
               Back

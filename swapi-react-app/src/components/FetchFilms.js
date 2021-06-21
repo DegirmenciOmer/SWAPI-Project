@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 
 import { Link } from 'react-router-dom'
 import { Card } from 'semantic-ui-react'
-import { useMovies } from '../context/MovieContext'
+import { useSwapi } from '../context/Contexts'
 
 const FetchFilms = ({ films }) => {
   const [error, setError] = useState(false)
   const [movies, setMovies] = useState([])
-  const { setCurrentMovie } = useMovies()
+  const { setCurrentMovie } = useSwapi()
 
   //to get the :id from the url
   const movieId = (movie) => movie.url.slice(28)
@@ -38,7 +38,7 @@ const FetchFilms = ({ films }) => {
           <div key={movie.episode_id}>
             <Card.Meta
               as={Link}
-              to={`/movie/${movieId(movie)}`}
+              to={`/movies/${movieId(movie)}`}
               onClick={() => setCurrentMovie(movie)}
             >
               {movie.title}
