@@ -23,6 +23,7 @@ const FetchShips = ({ starships }) => {
         ships.map((ship) => (
           <div key={ship.model}>
             <Card.Meta
+              className='ship-item'
               as={Link}
               to={`/spaceships/${idHandler(ship.model)}`}
               onClick={() => setCurrentShip(ship)}

@@ -63,6 +63,18 @@ justify-content: center !important;
    color: red !important
  }
 
+ .ship-item{
+   color:rgb(33, 33, 23) !important
+ }
+
+ .ship-item:hover{
+   color: rgb(219, 219, 128) !important 
+ }
+
+ .title:hover{
+   color: rgb(219, 219, 128) !important
+ }
+
 
 /* .movie-page-container::after{
   background-color: rgba(255, 255, 255, 0.5)

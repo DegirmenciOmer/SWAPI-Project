@@ -81,8 +81,11 @@ const MoviePage = () => {
             </Accordion.Content>
           </Accordion>
           <Card.Content textAlign='center' extra>
-            <Button as={Link} to='/' basic color='blue'>
-              Back
+            <Button animated inverted as={Link} to='/' color='red'>
+              <Button.Content visible>Close</Button.Content>
+              <Button.Content hidden>
+                <Icon className='close icon' />
+              </Button.Content>
             </Button>
           </Card.Content>
         </Card>
