@@ -2,7 +2,7 @@
 
 ## General Info
 
-- Working site : [here](https://klippa-calculation-game.netlify.app/)
+- Working site : [here](https://starwars-react-app.netlify.app/)
 
 A web app that uses the Star wars API (SWAPI) to display list of films and some other features about the StarWars universe. The app renders a UI that displays all the related movies with such as the
 
