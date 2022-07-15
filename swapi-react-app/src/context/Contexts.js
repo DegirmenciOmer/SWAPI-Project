@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react'
 
-//Movie Context
+
 const SwapiContext = createContext()
 
 export const SwapiProvider = ({ children }) => {
